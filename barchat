@@ -1,0 +1,58 @@
+"""
+Created on Mon Oct 16 10:33:09 2023
+
+@author: MAfolabi
+"""
+
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+
+# Sample data for the bar chart
+categories = ['Category A', 'Category B', 'Category C', 'Category D']
+values1 = [30, 50, 20, 70]
+values2 = [40, 60, 10, 80]
+
+# Convert values to percentages
+total1 = sum(values1)
+total2 = sum(values2)
+values1_percentage = [(value / total1) * 100 for value in values1]
+values2_percentage = [(value / total2) * 100 for value in values2]
+
+# Create the bar chart
+plt.figure(figsize=(8, 6))  # Adjust the figure size as needed
+bar_width = 0.35
+index = range(len(categories))
+
+bar1 = plt.bar(index, values1_percentage, bar_width, label='Dataset 1', color='#7030A0')
+
+# Make the second bar (Category B) light green
+bar2 = plt.bar([i + bar_width for i in index], values2_percentage[1], bar_width, label='Dataset 2', color='#66FFCC')
+
+
+
+# Add a legend
+plt.legend()
+
+# Add title and labels inside the plot
+plt.title('Bar Chart with Legend and Title')
+plt.xlabel('Categories')
+plt.ylabel('Percentage')
+plt.xticks([i + bar_width / 2 for i in index], categories)
+
+# Add the title inside the plot
+#plt.text(2, 90, 'Bar Chart with Legend and Title', fontsize=14, ha='center')
+#plt.text(1.5, 105, 'Bar Chart with Legend and Title', fontsize=14, ha='center')
+
+# Create a custom function to format y-axis labels as percentages
+def percentage_formatter(x, pos):
+    return f'{x:.0f}%'
+
+# Format y-axis labels as percentages using the custom formatter
+y_formatter = mtick.FuncFormatter(percentage_formatter)
+plt.gca().yaxis.set_major_formatter(y_formatter)
+
+
+
+plt.savefig('C:/Users/MAfolabi/OneDrive - STATINMED RESEARCH/Gileadplots/editable_plot.png')
+# Show the chart
+plt.show()
